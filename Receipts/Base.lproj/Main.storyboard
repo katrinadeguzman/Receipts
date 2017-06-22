@@ -23,28 +23,96 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tot-Al-V5g">
-                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <rect key="frame" x="16" y="20" width="343" height="592"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="592" id="TIp-Y8-dTT"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="siG-ap-9IF"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="WqK-xd-cxE"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMT-Dm-G0h">
+                                <rect key="frame" x="141" y="617" width="92" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title=" Add Receipt ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="8JB-vX-2fu" kind="presentation" identifier="AddReceipt" id="Pce-ow-msT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Tot-Al-V5g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AnQ-Gh-D1a"/>
-                            <constraint firstItem="Tot-Al-V5g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="H1E-5u-i2j"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Tot-Al-V5g" secondAttribute="trailing" id="Q5m-Qd-rPG"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Tot-Al-V5g" secondAttribute="bottom" id="dbn-MP-2CG"/>
+                            <constraint firstItem="Tot-Al-V5g" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="4wd-JN-Tul"/>
+                            <constraint firstItem="HMT-Dm-G0h" firstAttribute="top" secondItem="Tot-Al-V5g" secondAttribute="bottom" constant="5" id="FMH-oz-LwL"/>
+                            <constraint firstItem="Tot-Al-V5g" firstAttribute="centerX" secondItem="HMT-Dm-G0h" secondAttribute="centerX" id="Nzh-lF-BHF"/>
+                            <constraint firstItem="Tot-Al-V5g" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ShD-0u-FxN"/>
+                            <constraint firstItem="HMT-Dm-G0h" firstAttribute="top" secondItem="Tot-Al-V5g" secondAttribute="bottom" constant="5" id="VS3-EL-apV"/>
+                            <constraint firstItem="HMT-Dm-G0h" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="co7-nL-deZ"/>
+                            <constraint firstItem="Tot-Al-V5g" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="mR6-Db-ah0"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addNewReceiptButton" destination="HMT-Dm-G0h" id="w1K-7s-xKl"/>
                         <outlet property="tableView" destination="Tot-Al-V5g" id="TVZ-gG-GDI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+        </scene>
+        <!--Add Receipt View Controller-->
+        <scene sceneID="Uw2-gV-6gE">
+            <objects>
+                <viewController id="8JB-vX-2fu" customClass="AddReceiptViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4ob-EY-fPJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="xji-sL-c5z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ljV-1D-1au">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bap-5C-tT4">
+                                <rect key="frame" x="159" y="617" width="56" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title=" Cancel ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelReceipt:" destination="8JB-vX-2fu" eventType="touchUpInside" id="aWB-QM-ySV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxy-6J-gcM">
+                                <rect key="frame" x="169" y="572" width="36" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title=" Add ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addReceipt:" destination="8JB-vX-2fu" eventType="touchUpInside" id="9Xh-2L-gt9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bap-5C-tT4" firstAttribute="centerX" secondItem="ljV-1D-1au" secondAttribute="centerX" id="2AO-bF-mnW"/>
+                            <constraint firstItem="yxy-6J-gcM" firstAttribute="centerX" secondItem="ljV-1D-1au" secondAttribute="centerX" id="ERX-4h-4rF"/>
+                            <constraint firstItem="xji-sL-c5z" firstAttribute="top" secondItem="bap-5C-tT4" secondAttribute="bottom" constant="20" id="SLp-pE-k7H"/>
+                            <constraint firstItem="bap-5C-tT4" firstAttribute="top" secondItem="yxy-6J-gcM" secondAttribute="bottom" constant="15" id="hHg-Mm-lBU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addReceiptButton" destination="yxy-6J-gcM" id="Se9-xn-7RN"/>
+                        <outlet property="cancelReceiptButton" destination="bap-5C-tT4" id="LyT-o6-u4J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OZV-XQ-cOQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="834" y="36"/>
         </scene>
     </scenes>
 </document>

@@ -14,6 +14,7 @@
 		D70564BB1EFC47DF004BA37A /* Receipts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D70564B91EFC47DF004BA37A /* Receipts.xcdatamodeld */; };
 		D70564BD1EFC47DF004BA37A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70564BC1EFC47DF004BA37A /* Assets.xcassets */; };
 		D70564C01EFC47DF004BA37A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70564BE1EFC47DF004BA37A /* LaunchScreen.storyboard */; };
+		D70564C91EFC5111004BA37A /* AddReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D70564C81EFC5111004BA37A /* AddReceiptViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		D70564BC1EFC47DF004BA37A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D70564BF1EFC47DF004BA37A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D70564C11EFC47DF004BA37A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D70564C71EFC5111004BA37A /* AddReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReceiptViewController.h; sourceTree = "<group>"; };
+		D70564C81EFC5111004BA37A /* AddReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReceiptViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,8 @@
 				D70564B11EFC47DF004BA37A /* AppDelegate.m */,
 				D70564B31EFC47DF004BA37A /* ViewController.h */,
 				D70564B41EFC47DF004BA37A /* ViewController.m */,
+				D70564C71EFC5111004BA37A /* AddReceiptViewController.h */,
+				D70564C81EFC5111004BA37A /* AddReceiptViewController.m */,
 				D70564B61EFC47DF004BA37A /* Main.storyboard */,
 				D70564BC1EFC47DF004BA37A /* Assets.xcassets */,
 				D70564BE1EFC47DF004BA37A /* LaunchScreen.storyboard */,
@@ -154,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D70564BB1EFC47DF004BA37A /* Receipts.xcdatamodeld in Sources */,
+				D70564C91EFC5111004BA37A /* AddReceiptViewController.m in Sources */,
 				D70564B51EFC47DF004BA37A /* ViewController.m in Sources */,
 				D70564B21EFC47DF004BA37A /* AppDelegate.m in Sources */,
 				D70564AF1EFC47DF004BA37A /* main.m in Sources */,
