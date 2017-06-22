@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@class NSPersistentContainer;
+
+@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *addNewReceiptButton;
 
+@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
 
 @end
 

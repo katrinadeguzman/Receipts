@@ -8,8 +8,14 @@
 
 #import "ViewController.h"
 #import "AddReceiptViewController.h"
+#import "AppDelegate.h"
+#import "Receipt+CoreDataClass.h"
+#import "Tag+CoreDataClass.h"
+
 
 @interface ViewController ()
+@property (nonatomic, strong) NSManagedObjectContext* context;
+@property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -18,9 +24,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"reuseIdentifier"];
+    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"headerReuseIdentifier"];
     // Do any additional setup after loading the view, typically from a nib.
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        self.persistentContainer = appDelegate.persistentContainer;
+    self.context = self.persistentContainer.viewContext;
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
