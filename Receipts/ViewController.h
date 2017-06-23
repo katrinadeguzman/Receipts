@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreData/CoreData.h"
+#import "AddReceiptViewController.h"
+
 
 @class NSPersistentContainer;
 
-@interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ViewController : UIViewController
+<UITableViewDataSource,UITableViewDelegate, AddReceiptViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *addNewReceiptButton;
 
 @property (nonatomic, strong) NSPersistentContainer *persistentContainer;

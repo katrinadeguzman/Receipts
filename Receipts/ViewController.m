@@ -9,57 +9,148 @@
 #import "ViewController.h"
 #import "AddReceiptViewController.h"
 #import "AppDelegate.h"
-#import "Receipt+CoreDataClass.h"
-#import "Tag+CoreDataClass.h"
 
 
 @interface ViewController ()
 @property (nonatomic, strong) NSManagedObjectContext* context;
 @property (nonatomic, strong) NSFetchedResultsController* fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic, strong) NSArray<Tag*>* tags;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"reuseIdentifier"];
-    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"headerReuseIdentifier"];
-    // Do any additional setup after loading the view, typically from a nib.
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        self.persistentContainer = appDelegate.persistentContainer;
     self.context = self.persistentContainer.viewContext;
     
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellReuseIdentifier"];
+    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"headerReuseIdentifier"];
+    [self loadTags];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self loadTags];
 }
 
+#pragma mark - Tag
+-(void)initTags
+{
+    Tag* business = [[Tag alloc] initWithContext:self.context];
+    business.tagName = @"Business";
+    
+    Tag* travel = [[Tag alloc] initWithContext:self.context];
+    travel.tagName = @"Travel";
+    
+    Tag* personal = [[Tag alloc] initWithContext:self.context];
+    personal.tagName = @"Personal";
+    
+    Tag* family= [[Tag alloc] initWithContext:self.context];
+    family.tagName = @"Family";
+    
+    [self saveContext];
+}
+
+-(void)fetchTags
+{
+    NSFetchRequest* fetchRequest = [Tag fetchRequest];
+    NSSortDescriptor* tagSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tagName" ascending:YES];
+    [fetchRequest setSortDescriptors:@[tagSortDescriptor]];
+    
+    NSError* tagFetchError = nil;
+    
+    self.tags = [self.context executeFetchRequest:fetchRequest error:&tagFetchError];
+    
+    if (tagFetchError)
+    {
+        NSLog(@"Error fetching tags");
+        NSLog(@"Fetch Error: %@",tagFetchError.localizedDescription);
+    }
+    
+}
+
+-(void)loadTags
+{
+    [self fetchTags];
+    
+    if (self.tags.count == 0)
+    {
+        [self initTags];
+    }
+
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - TableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.tags.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.tags[section].relationship.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cellReuseIdentifier" forIndexPath:indexPath];
+    Tag* tag = self.tags[indexPath.section];
+    NSArray* allTags = [tag.relationship allObjects];
+    Receipt* receipt = allTags[indexPath.row];
+    
+    cell.textLabel.text = receipt.note;
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 45;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headerReuseIdentifier"];
+    header.textLabel.text = self.tags[section].tagName;
+    return header;
+}
+
+#pragma mark - Segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"AddReceipt"])
+    
+    if([segue.identifier isEqualToString:@"AddReceipt"])
     {
-        AddReceiptViewController* controller = [[AddReceiptViewController alloc]init];
-        controller = segue.destinationViewController;
+        AddReceiptViewController* addReceipt = (AddReceiptViewController*)segue.destinationViewController;
+        addReceipt.delegate = self;
+        addReceipt.persistentContainer = self.persistentContainer;
+        addReceipt.tags = self.tags;
     }
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+
+#pragma mark - Core Data
+- (void)saveContext
+{
+    NSManagedObjectContext *context = self.persistentContainer.viewContext;
+    NSError *error = nil;
+    if ([context hasChanges] && ![context save:&error])
+    {
+        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+        abort();
+    }
 }
 
+#pragma mark - AddReceiptViewControllerDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(void)reloadData {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.tableView reloadData];
+    }];
     
-    return 0;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 }
 
 @end
